@@ -5,14 +5,24 @@
     {
       "AbsoluteMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|d:\\projects\\.net projects\\sampleproject\\sampleproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|solutionrelative:sampleproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+<<<<<<< HEAD
     },
     {
       "AbsoluteMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|d:\\projects\\.net projects\\sampleproject\\sampleproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|solutionrelative:sampleproject\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+=======
+>>>>>>> c052d61c2c60d5b214622a2fa96137aa0745424b
     },
     {
       "AbsoluteMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|d:\\projects\\.net projects\\sampleproject\\sampleproject\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|solutionrelative:sampleproject\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+<<<<<<< HEAD
+=======
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|d:\\projects\\.net projects\\sampleproject\\sampleproject\\controllers\\productinventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|solutionrelative:sampleproject\\controllers\\productinventorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> c052d61c2c60d5b214622a2fa96137aa0745424b
     }
   ],
   "DocumentGroupContainers": [
@@ -22,6 +32,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 1,
           "Children": [
             {
@@ -39,20 +50,34 @@
             },
             {
               "$type": "Document",
+=======
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+>>>>>>> c052d61c2c60d5b214622a2fa96137aa0745424b
               "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Program.cs",
               "RelativeDocumentMoniker": "SampleProject\\Program.cs",
               "ToolTip": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Program.cs",
               "RelativeToolTip": "SampleProject\\Program.cs",
+<<<<<<< HEAD
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAA9AAAA",
+=======
+              "ViewState": "AQIAABsAAAAAAAAAAAAAADAAAAAkAAAA",
+>>>>>>> c052d61c2c60d5b214622a2fa96137aa0745424b
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-28T17:19:20.752Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 2,
+=======
+              "DocumentIndex": 1,
+>>>>>>> c052d61c2c60d5b214622a2fa96137aa0745424b
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "SampleProject\\Properties\\launchSettings.json",
@@ -62,6 +87,22 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-05-28T17:05:05.297Z",
               "EditorCaption": ""
+<<<<<<< HEAD
+=======
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductInventoryController.cs",
+              "DocumentMoniker": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Controllers\\ProductInventoryController.cs",
+              "RelativeDocumentMoniker": "SampleProject\\Controllers\\ProductInventoryController.cs",
+              "ToolTip": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Controllers\\ProductInventoryController.cs",
+              "RelativeToolTip": "SampleProject\\Controllers\\ProductInventoryController.cs",
+              "ViewState": "AQIAABEAAAAAAAAAAAAAwDUAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-28T05:48:56.142Z",
+              "EditorCaption": ""
+>>>>>>> c052d61c2c60d5b214622a2fa96137aa0745424b
             }
           ]
         }

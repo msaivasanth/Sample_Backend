@@ -12,7 +12,7 @@ namespace SampleProject.Controllers
 
         public SampleController(ApplicationDbContext db)
         {
-            // Having access to the database.
+            // Access to the database.
             _db = db;
         }
 
