@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\Projects\\.Net Projects\\SampleProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|d:\\projects\\.net projects\\sampleproject\\sampleproject\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|solutionrelative:sampleproject\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|d:\\projects\\.net projects\\sampleproject\\sampleproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{50B5B1DC-B444-4392-9A87-899BC5A133A2}|SampleProject\\SampleProject.csproj|solutionrelative:sampleproject\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,19 +31,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\.gitignore",
+              "RelativeDocumentMoniker": "SampleProject\\.gitignore",
+              "ToolTip": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\.gitignore",
+              "RelativeToolTip": "SampleProject\\.gitignore",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAAAAUAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-05-30T15:16:24.934Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Program.cs",
               "RelativeDocumentMoniker": "SampleProject\\Program.cs",
               "ToolTip": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Program.cs",
               "RelativeToolTip": "SampleProject\\Program.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAADAAAAAkAAAA",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAwDAAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-28T17:19:20.752Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "SampleProject\\Properties\\launchSettings.json",
@@ -47,12 +64,11 @@
               "RelativeToolTip": "SampleProject\\Properties\\launchSettings.json",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAAB4AAAAGAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-28T17:05:05.297Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-28T17:05:05.297Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "ProductInventoryController.cs",
               "DocumentMoniker": "D:\\Projects\\.Net Projects\\SampleProject\\SampleProject\\Controllers\\ProductInventoryController.cs",
               "RelativeDocumentMoniker": "SampleProject\\Controllers\\ProductInventoryController.cs",
@@ -60,8 +76,7 @@
               "RelativeToolTip": "SampleProject\\Controllers\\ProductInventoryController.cs",
               "ViewState": "AQIAABEAAAAAAAAAAAAAwDUAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-28T05:48:56.142Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-28T05:48:56.142Z"
             }
           ]
         }
