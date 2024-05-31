@@ -42,11 +42,59 @@ namespace SampleProject.Controllers
 
             var token = new JwtSecurityToken(
                 _config["Jwt:Issuer"], _config["Jwt:Audience"], null,
-                expires: DateTime.Now.AddMinutes(5),
+                expires: DateTime.UtcNow.AddMinutes(5),
                 signingCredentials: credentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        [HttpGet("user/me")]
+        public IActionResult CheckTokenExpiry()
+        {
+            var authHeader = Request.Headers["Authorization"].ToString();
+            
+
+            if (string.IsNullOrEmpty(authHeader))
+            {
+                return Unauthorized(new { message = "Token is missing or invalid" });
+            }
+
+            var token = authHeader.Trim();
+
+            var signingKey = _config["Jwt:Key"];
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            try
+            {
+                var validationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = false,
+                    ValidIssuer = _config["Jwt:Issuer"],
+                    ValidAudience = _config["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey))
+                };
+
+                var principal = tokenHandler.ValidateToken(token, validationParameters, out SecurityToken validatedToken);
+
+                if (validatedToken is JwtSecurityToken jwtSecurityToken)
+                {
+                    if (jwtSecurityToken.ValidTo < DateTime.UtcNow)
+                    {
+                        return Unauthorized(new { message = "Token is expired" });
+                    }
+
+                    return Ok(new { message = "Token is valid" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { message = "Token validation failed", error = ex.Message });
+            }
+
+            return Unauthorized(new { message = "Token is invalid" });
         }
 
         [AllowAnonymous]
