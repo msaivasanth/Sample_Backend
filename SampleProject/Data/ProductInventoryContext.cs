@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using SampleProject.Models.DTO;
 using SampleProject.Models.ProductInventory;
 
 namespace SampleProject.Data;
@@ -15,7 +16,7 @@ public partial class ProductInventoryContext : DbContext
         : base(options)
     {
     }
-
+    public DbSet<ProductDto> ProductDtos { get; set; }
     public virtual DbSet<Brand> Brands { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }

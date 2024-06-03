@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SampleProject.Data;
+using SampleProject.Models.DTO;
 using SampleProject.Models.ProductInventory;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -112,7 +114,38 @@ namespace SampleProject.Controllers
             return res;
         }
 
-        
+        [HttpGet("products")]
+
+        public async Task<ActionResult<List<ProductDto>>> GetProducts()
+        {
+            
+            var products = await _db.ProductDtos.FromSqlRaw("spGetProducts").ToListAsync();
+            List<ProductInfo> pros = new List<ProductInfo>();
+
+            for(int i =  0; i < products.Count; i++)
+            {
+                int id = products[i].Id;
+                Console.WriteLine(id);
+                string[] images = _db.Images.Where(i => i.Id == id).Select(i => i.ImageUrl).ToArray();
+                var pro = new ProductInfo()
+                {
+                    id = id,
+                    title = products[i].Title,
+                    description = products[i].Description,
+                    price = products[i].Price,
+                    rating = products[i].Rating,
+                    brand = products[i].Brand_Name,
+                    category = products[i].Category_Name,
+                    thumbnail = products[i].Thumbnail,
+                    images = images
+                };
+                pros.Add(pro);
+            }
+
+
+            return Ok(pros);    
+        }
+
 
     }
 }
