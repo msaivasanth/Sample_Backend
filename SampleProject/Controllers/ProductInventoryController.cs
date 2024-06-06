@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SampleProject.Data;
@@ -115,7 +116,6 @@ namespace SampleProject.Controllers
         }
 
         [HttpGet("products")]
-
         public async Task<ActionResult<List<ProductDto>>> GetProducts()
         {
             
@@ -144,6 +144,66 @@ namespace SampleProject.Controllers
 
 
             return Ok(pros);    
+        }
+
+        [HttpPost("products/addProduct")]
+        public async Task<IActionResult> CreateProduct([FromBody] ProductInfo product)
+        {
+            if (product == null)
+            {
+                return BadRequest("Product not found!");
+            }
+
+            var brand = _db.Brands.FirstOrDefault(b => b.BrandName == product.brand);
+            var category = _db.Categories.FirstOrDefault(c => c.CategoryName == product.category);
+            string brandId = brand == null ? null : brand.BrandId;
+            string categoryId = category == null ? null : category.CategoryId;
+
+            if (brand == null)
+            {
+                brandId = product.brand.Substring(0, 2);
+                await _db.Database.ExecuteSqlRawAsync(
+                    "EXEC addBrand @BrandId, @BrandName",
+                    new SqlParameter("@BrandId", brandId),
+                    new SqlParameter("@BrandName", product.brand)
+                );
+            }
+            if (category == null)
+            {
+                categoryId = product.category.Substring(0, 2);
+                await _db.Database.ExecuteSqlRawAsync(
+                    "EXEC addCategory @CategoryId, @CategoryName",
+                    new SqlParameter("@CategoryId", categoryId),
+                    new SqlParameter("@CategoryName", product.category)
+                );
+            }
+
+            await _db.Database.ExecuteSqlRawAsync(
+                "EXEC addProduct @Title, @Description, @Price, @Rating, @BrandId, @CategoryId, @Thumbnail",
+                new SqlParameter("@Title", product.title),
+                new SqlParameter("@Description", product.description),
+                new SqlParameter("@Price", product.price),
+                new SqlParameter("@Rating", product.rating),
+                new SqlParameter("@BrandId", brandId),
+                new SqlParameter("@CategoryId", categoryId),
+                new SqlParameter("@Thumbnail", product.thumbnail)
+            );
+
+            var fetchId = await _db.ProductIds.FromSqlRaw("SELECT IDENT_CURRENT('Products') AS ID").ToListAsync();
+            var ID = fetchId[0].ID;
+
+            Console.WriteLine("ID " + ID);
+
+            foreach (var image in product.images)
+            {
+                await _db.Database.ExecuteSqlRawAsync(
+                    "EXEC addImage @ProductId, @Image",
+                    new SqlParameter("@ProductId", ID),
+                    new SqlParameter("@Image", image)
+                );
+            }
+
+            return Ok(product);
         }
 
 
