@@ -206,6 +206,26 @@ namespace SampleProject.Controllers
             return Ok(product);
         }
 
+        [HttpGet("products/{id:int}")]
+        public async Task<ActionResult<ProductDto>> GetProductDetails(int id)
+        {
+            var products = await _db.ProductDtos.FromSqlRaw($"spGetProductDetails {id}").ToListAsync();
+            string[] images = _db.Images.Where(i => i.Id == id).Select(i => i.ImageUrl).ToArray();
+            var pro = new ProductInfo()
+            {
+                id = id,
+                title = products[0].Title,
+                description = products[0].Description,
+                price = products[0].Price,
+                rating = products[0].Rating,
+                brand = products[0].Brand_Name,
+                category = products[0].Category_Name,
+                thumbnail = products[0].Thumbnail,
+                images = images
+            };
+            return Ok(pro);
+        }
+
 
     }
 }
