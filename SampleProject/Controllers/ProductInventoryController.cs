@@ -30,8 +30,10 @@ namespace SampleProject.Controllers
             if (login.UserName != null && login.Password != null)
             {
                 var u = _db.Logins.FirstOrDefault(x => x.Password == login.Password);
-                if (u != null) { 
-                    _user = _db.Users.FirstOrDefault(us => us.Id == u.Id);
+                if (u != null) {
+                    if (u.UserName == login.UserName) {
+                        _user = _db.Users.FirstOrDefault(us => us.Id == u.Id);
+                    }
                 }
             }
 
@@ -40,16 +42,18 @@ namespace SampleProject.Controllers
 
         private string GenerateToken()
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            Console.WriteLine(_config["Jwt:Audience"]);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
             var token = new JwtSecurityToken(
                 _config["Jwt:Issuer"], _config["Jwt:Audience"], null,
-                expires: DateTime.UtcNow.AddMinutes(5),
+                expires: DateTime.UtcNow.AddMinutes(60),
                 signingCredentials: credentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+
         }
 
         [HttpGet("user/me")]
@@ -74,7 +78,7 @@ namespace SampleProject.Controllers
                 {
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidateLifetime = false,
+                    ValidateLifetime = true,
                     ValidIssuer = _config["Jwt:Issuer"],
                     ValidAudience = _config["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey))
@@ -226,6 +230,13 @@ namespace SampleProject.Controllers
             return Ok(pro);
         }
 
+        [HttpDelete("products/deleteProduct/{id:int}")]
+        public async Task<ActionResult> DeleteProduct(int id)
+        {
 
+            var products = await _db.Database.ExecuteSqlRawAsync($"spDeleteProduct {id}");
+            
+            return Ok(new {result = "Deleted!"});
+        }
     }
 }
