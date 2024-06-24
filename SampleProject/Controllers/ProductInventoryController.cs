@@ -158,8 +158,8 @@ namespace SampleProject.Controllers
                 return BadRequest("Product not found!");
             }
 
-            var brand = _db.Brands.FirstOrDefault(b => b.BrandName == product.brand);
-            var category = _db.Categories.FirstOrDefault(c => c.CategoryName == product.category);
+            var brand = _db.Brands.FirstOrDefault(b => b.BrandName.ToLower() == product.brand.ToLower());
+            var category = _db.Categories.FirstOrDefault(c => c.CategoryName.ToLower() == product.category.ToLower());
             string brandId = brand == null ? null : brand.BrandId;
             string categoryId = category == null ? null : category.CategoryId;
 
@@ -195,8 +195,6 @@ namespace SampleProject.Controllers
 
             var fetchId = await _db.ProductIds.FromSqlRaw("SELECT IDENT_CURRENT('Products') AS ID").ToListAsync();
             var ID = fetchId[0].ID;
-
-            Console.WriteLine("ID " + ID);
 
             foreach (var image in product.images)
             {
@@ -237,6 +235,73 @@ namespace SampleProject.Controllers
             var products = await _db.Database.ExecuteSqlRawAsync($"spDeleteProduct {id}");
             
             return Ok(new {result = "Deleted!"});
+        }
+
+        [HttpPut("products/update/{id:int}")]
+        public async Task<IActionResult> UpdateProduct([FromBody] ProductInfo product, int id)
+        {
+            if (product == null || (product != null && product.id != id))
+            {
+                return BadRequest("Product not found!");
+            }
+
+            var brand = _db.Brands.FirstOrDefault(b => b.BrandName == product.brand);
+            var category = _db.Categories.FirstOrDefault(c => c.CategoryName == product.category);
+            string brandId = brand == null ? null : brand.BrandId;
+            string categoryId = category == null ? null : category.CategoryId;
+
+            if (brand == null)
+            {
+                brandId = product.brand.Substring(0, 2) + product.brand.Substring(product.brand.Length - 1);
+                await _db.Database.ExecuteSqlRawAsync(
+                    "EXEC addBrand @BrandId, @BrandName",
+                    new SqlParameter("@BrandId", brandId),
+                    new SqlParameter("@BrandName", product.brand)
+                );
+            }
+            if (category == null)
+            {
+                categoryId = product.category.Substring(0, 2) + product.category.Substring(product.category.Length - 1);
+                await _db.Database.ExecuteSqlRawAsync(
+                    "EXEC addCategory @CategoryId, @CategoryName",
+                    new SqlParameter("@CategoryId", categoryId),
+                    new SqlParameter("@CategoryName", product.category)
+                );
+            }
+
+            await _db.Database.ExecuteSqlRawAsync(
+                "EXEC spUpdateProduct @Id, @title, @description, @price, @rating, @brandID, @categoryId",
+                new SqlParameter("@Id", product.id),
+                new SqlParameter("@title", product.title),
+                new SqlParameter("@description", product.description),
+                new SqlParameter("@price", product.price),
+                new SqlParameter("@rating", product.rating),
+                new SqlParameter("@brandId", brandId),
+                new SqlParameter("@categoryId", categoryId)
+            );
+
+            if(product.thumbnail != "null")
+            {
+                await _db.Database.ExecuteSqlRawAsync("UPDATE Products SET Thumbnail = @thumb WHERE ID = @id", 
+                    new SqlParameter("@thumb", product.thumbnail),
+                    new SqlParameter("@id", product.id)
+                );
+            }
+
+            if(product.images[0] != null)
+            {
+                await _db.Database.ExecuteSqlRawAsync("DELETE FROM Images WHERE ID = @Id;", new SqlParameter("@Id", id));
+            
+                foreach (var image in product.images)
+                {
+                    await _db.Database.ExecuteSqlRawAsync(
+                        "EXEC addImage @ProductId, @Image",
+                        new SqlParameter("@ProductId", id),
+                        new SqlParameter("@Image", image)
+                    );
+                }
+            }
+            return Ok(product);
         }
     }
 }
