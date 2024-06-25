@@ -19,6 +19,7 @@ namespace SampleProject.Controllers
         private readonly ProductInventoryContext _db;
         private IConfiguration _config;
 
+
         public ProductInventoryController(IConfiguration configuration, ProductInventoryContext db) { 
             _db = db;
             _config = configuration;
@@ -120,7 +121,7 @@ namespace SampleProject.Controllers
         }
 
         [HttpGet("products")]
-        public async Task<ActionResult<List<ProductDto>>> GetProducts()
+        public async Task<List<ProductInfo>> GetProducts()
         {
             
             var products = await _db.ProductDtos.FromSqlRaw("spGetProducts").ToListAsync();
@@ -147,7 +148,7 @@ namespace SampleProject.Controllers
             }
 
 
-            return Ok(pros);    
+            return pros;    
         }
 
         [HttpPost("products/addProduct")]
@@ -302,6 +303,22 @@ namespace SampleProject.Controllers
                 }
             }
             return Ok(product);
+        }
+
+        [HttpGet("products/search/{value:alpha}")]
+        public async Task<ActionResult<ProductInfo>> SearchProducts(string value)
+        {
+            List<ProductInfo> products = new List<ProductInfo>();
+            products = await GetProducts();
+
+            List<ProductInfo> searchResult = new List<ProductInfo>();
+            products.ForEach(product => {
+                if(product.title.ToLower().IndexOf(value.ToLower()) != -1 || product.description.ToLower().IndexOf(value.ToLower()) != -1)
+                {
+                    searchResult.Add(product);
+                }
+            });
+            return Ok(searchResult);
         }
     }
 }
