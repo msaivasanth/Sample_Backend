@@ -305,7 +305,7 @@ namespace SampleProject.Controllers
             return Ok(product);
         }
 
-        [HttpGet("products/search/{value:alpha}")]
+        [HttpGet("products/search/{value}")]
         public async Task<ActionResult<ProductInfo>> SearchProducts(string value)
         {
             List<ProductInfo> products = new List<ProductInfo>();
